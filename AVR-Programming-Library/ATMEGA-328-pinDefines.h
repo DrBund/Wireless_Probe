@@ -87,6 +87,11 @@
 #define SPI_SCK_PIN                 PINB
 #define SPI_SCK_DDR                 DDRB
 
+#define SPI_INT                     PD2
+#define SPI_INT_PORT                PORTD
+#define SPI_INT_PIN                 PIND
+#define SPI_INT_DDR                 DDRD
+
 #define I2C_SDA                     PC4
 #define I2C_SDA_PORT                PORTC
 #define I2C_SDA_PIN                 PINC

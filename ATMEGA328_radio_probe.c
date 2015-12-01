@@ -82,9 +82,17 @@ void setup()
 	//  The IRQ is normally high, and active low
 	//  The IRQ is triggered at:
 	delay(100); // Make sure all the configuration is completed before attaching the interrupt
-	attachInterrupt(0, IRQ_resolve, FALLING);
+	//attachInterrupt(0, IRQ_resolve, FALLING);
+  // The nRF24L01p chip should pullup the pin when not interrupting
+  initInterrupt0();
 }
 
+void initInterrupt0(void)
+{
+  EIMSK |= (1 << INT0);                  /* Enable INT0 */
+  EICRA |= (1<< ISC01);         /* trigger when falling */
+  sei();             /* set global interrupt enable bit */
+}
 
 int main(void) {
 
@@ -159,7 +167,7 @@ unsigned char setBit(unsigned char byteIn, int bitNum, boolean setClear)
 /* IRQ_resolve
 Resolve the attachInterrupt function quickly
 */
-void IRQ_resolve()
+ISR(INT0_vect)
 {
 	// Get the IRQ code from the receiver and assign it to IRQ_state variable
 	//unsigned char * p_tmp;
